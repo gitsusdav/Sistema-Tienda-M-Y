@@ -29,7 +29,7 @@ namespace tiendaMY
             CargarVentasCSV();
             CargarVentasAlDataGridView(ventas);
             ventasFiltradas = new List<Venta>(ventas);
-            Calcular(ventasFiltradas);
+            
 
             // inicializar combobox
             filtroFecha.Text = "Hoy";
@@ -38,6 +38,7 @@ namespace tiendaMY
             //inicializar cantidades
             dineroFacturado = 0;
             ganancias = 0;
+            Calcular(ventasFiltradas);
 
 
             // configurar combobox para que no se puedad editar
