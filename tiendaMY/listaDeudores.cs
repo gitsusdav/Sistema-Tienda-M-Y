@@ -127,5 +127,10 @@ namespace tiendaMY
                 }
             }
         }
+
+        private void listaDeudores_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

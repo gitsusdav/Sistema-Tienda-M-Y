@@ -112,6 +112,7 @@
             this.Controls.Add(this.tituloListaDeudores);
             this.Name = "listaDeudores";
             this.Text = "Lista deudores";
+            this.Load += new System.EventHandler(this.listaDeudores_Load);
             ((System.ComponentModel.ISupportInitialize)(this.deudoresDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
