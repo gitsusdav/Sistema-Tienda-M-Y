@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace tiendaMY
 {
@@ -19,7 +20,7 @@ namespace tiendaMY
         private List<Cliente> clientes;
         private List<Producto> productos;
         private List<Producto> carrito;
-        private decimal tasa;
+        public decimal tasa;
         private bool clienteEncontrado;
        
 
@@ -37,6 +38,19 @@ namespace tiendaMY
             // carga de los csv
             CargarCsvClientes();
             CargarCsvProductos();
+            
+
+        }
+
+
+
+        private void Facturar_Load(object sender, EventArgs e)
+        {
+            RefrescarTotal();
+        }
+
+        private void nombreProductoLbl_Click(object sender, EventArgs e)
+        {
 
         }
 
@@ -44,13 +58,44 @@ namespace tiendaMY
         private void CargarCsvProductos()
         {
 
-            string rutaArchivo = "inventario.csv";
-            string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
-            string[] lineasProductos = System.IO.File.ReadAllLines(rutaCompleta);
+            string nombreArchivo = "inventario.csv";
+            string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nombreArchivo);
+
+            if (File.Exists(rutaArchivo)){
+                LeerArchivoInventario(rutaArchivo);
+            }
+
+            else
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(rutaArchivo))
+                    {
+                        // Escribimos la primera línea con los encabezados (opcional)
+                        writer.WriteLine("Codigo,Nombre,Descripcion,Cantidad,PrecioCompra,PrecioDeVenta");
+                    }
+
+                    Console.WriteLine($"Archivo CSV creado en: {rutaArchivo}");
+                    LeerArchivoInventario(rutaArchivo);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al crear el archivo CSV: {ex.Message}");
+                }
+                
+            }
+
+
+            
+        }
+
+        private void LeerArchivoInventario(string rutaArchivo)
+        {
+            string[] lineasProductos = System.IO.File.ReadAllLines(rutaArchivo);
 
             foreach (string linea in lineasProductos.Skip(1))
             {
-
+                var line = linea;
                 string[] valoresObjeto = linea.Split(',');
                 Producto producto = new Producto();
 
@@ -65,21 +110,40 @@ namespace tiendaMY
             }
         }
 
-        private void Facturar_Load(object sender, EventArgs e)
-        {
-            RefrescarTotal();
-        }
-
-        private void nombreProductoLbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void CargarCsvClientes()
         {
-            string rutaArchivo = "clientes.csv";
-            string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
-            string[] filasClientes = System.IO.File.ReadAllLines(rutaCompleta);
+            string nombreArchivo = "clientes.csv";
+            string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nombreArchivo);
+
+            if (File.Exists(rutaArchivo)) {
+                LeerArchivoCliente(rutaArchivo);
+            }
+
+            else {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(rutaArchivo))
+                    {
+                        // Escribimos la primera línea con los encabezados (opcional)
+                        writer.WriteLine("Nombre,Cedula");
+                    }
+
+                    Console.WriteLine($"Archivo CSV creado en: {rutaArchivo}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al crear el archivo CSV: {ex.Message}");
+                }
+                LeerArchivoCliente(rutaArchivo);
+            }
+
+            
+
+        }
+
+        private void LeerArchivoCliente(string rutaArchivo)
+        {
+            string[] filasClientes = System.IO.File.ReadAllLines(rutaArchivo);
 
             foreach (var fila in filasClientes.Skip(1))
             {
@@ -89,7 +153,6 @@ namespace tiendaMY
                 cliente.Cedula = item[1];
                 clientes.Add(cliente);
             }
-
 
         }
 
@@ -424,9 +487,9 @@ namespace tiendaMY
                         }
 
                         //calcular precio total
-                        decimal precioTotal = (decimal)(producto.PrecioCompra * cantidad);
+                        decimal precioTotal = (decimal)(producto.PrecioDeVenta * cantidad);
                         // anadir a datagridview
-                        facturaDGV.Rows.Add(codigoProducto, producto.Nombre, producto.PrecioCompra, cantidad, precioTotal);
+                        facturaDGV.Rows.Add(codigoProducto, producto.Nombre, producto.PrecioDeVenta, cantidad, precioTotal);
                         // marcar booleano como true
                         productoEncontrado = true;
                         //reducir stock segun la cantidad que haya seleccionado el cliente
@@ -586,6 +649,16 @@ namespace tiendaMY
         private void Facturar_FormClosed(object sender, FormClosedEventArgs e)
         {
          
+        }
+
+        private void cedulaLbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cedulaTB_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

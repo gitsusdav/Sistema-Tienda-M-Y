@@ -64,49 +64,56 @@
             // 
             // nombreTB
             // 
-            this.nombreTB.Location = new System.Drawing.Point(97, 105);
+            this.nombreTB.Location = new System.Drawing.Point(88, 166);
+            this.nombreTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nombreTB.Name = "nombreTB";
-            this.nombreTB.Size = new System.Drawing.Size(100, 22);
+            this.nombreTB.Size = new System.Drawing.Size(76, 20);
             this.nombreTB.TabIndex = 1;
             // 
             // cedulaTB
             // 
-            this.cedulaTB.Location = new System.Drawing.Point(97, 68);
+            this.cedulaTB.Location = new System.Drawing.Point(88, 138);
+            this.cedulaTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cedulaTB.Name = "cedulaTB";
-            this.cedulaTB.Size = new System.Drawing.Size(100, 22);
+            this.cedulaTB.Size = new System.Drawing.Size(76, 20);
             this.cedulaTB.TabIndex = 2;
+            this.cedulaTB.TextChanged += new System.EventHandler(this.cedulaTB_TextChanged);
             // 
             // tituloLbl
             // 
             this.tituloLbl.AutoSize = true;
             this.tituloLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloLbl.Location = new System.Drawing.Point(601, 9);
+            this.tituloLbl.Location = new System.Drawing.Point(713, 27);
+            this.tituloLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.tituloLbl.Name = "tituloLbl";
-            this.tituloLbl.Size = new System.Drawing.Size(235, 54);
+            this.tituloLbl.Size = new System.Drawing.Size(191, 44);
             this.tituloLbl.TabIndex = 3;
             this.tituloLbl.Text = "COMPRA";
             // 
             // codigoTB
             // 
-            this.codigoTB.Location = new System.Drawing.Point(89, 199);
+            this.codigoTB.Location = new System.Drawing.Point(77, 245);
+            this.codigoTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.codigoTB.Name = "codigoTB";
-            this.codigoTB.Size = new System.Drawing.Size(100, 22);
+            this.codigoTB.Size = new System.Drawing.Size(76, 20);
             this.codigoTB.TabIndex = 4;
             this.codigoTB.Tag = "Hola";
             // 
             // cantidadTB
             // 
-            this.cantidadTB.Location = new System.Drawing.Point(89, 227);
+            this.cantidadTB.Location = new System.Drawing.Point(77, 267);
+            this.cantidadTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cantidadTB.Name = "cantidadTB";
-            this.cantidadTB.Size = new System.Drawing.Size(40, 22);
+            this.cantidadTB.Size = new System.Drawing.Size(31, 20);
             this.cantidadTB.TabIndex = 5;
             this.cantidadTB.TextChanged += new System.EventHandler(this.cantidadTB_TextChanged);
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(201, 192);
+            this.addButton.Location = new System.Drawing.Point(161, 239);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(88, 36);
+            this.addButton.Size = new System.Drawing.Size(66, 29);
             this.addButton.TabIndex = 6;
             this.addButton.Text = "Añadir";
             this.addButton.UseVisualStyleBackColor = true;
@@ -114,9 +121,10 @@
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(212, 63);
+            this.buscarButton.Location = new System.Drawing.Point(171, 134);
+            this.buscarButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buscarButton.Name = "buscarButton";
-            this.buscarButton.Size = new System.Drawing.Size(88, 32);
+            this.buscarButton.Size = new System.Drawing.Size(78, 24);
             this.buscarButton.TabIndex = 7;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
@@ -132,11 +140,12 @@
             this.cantidadColumn,
             this.precioTotalColumn,
             this.eliminarPB});
-            this.facturaDGV.Location = new System.Drawing.Point(398, 78);
+            this.facturaDGV.Location = new System.Drawing.Point(478, 84);
+            this.facturaDGV.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.facturaDGV.Name = "facturaDGV";
             this.facturaDGV.RowHeadersWidth = 51;
             this.facturaDGV.RowTemplate.Height = 24;
-            this.facturaDGV.Size = new System.Drawing.Size(593, 582);
+            this.facturaDGV.Size = new System.Drawing.Size(702, 549);
             this.facturaDGV.TabIndex = 8;
             this.facturaDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.facturaDGV_CellContentClick);
             // 
@@ -187,26 +196,29 @@
             // totalBsTB
             // 
             this.totalBsTB.AutoSize = true;
-            this.totalBsTB.Location = new System.Drawing.Point(31, 422);
+            this.totalBsTB.Location = new System.Drawing.Point(33, 426);
+            this.totalBsTB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalBsTB.Name = "totalBsTB";
-            this.totalBsTB.Size = new System.Drawing.Size(60, 16);
+            this.totalBsTB.Size = new System.Drawing.Size(49, 13);
             this.totalBsTB.TabIndex = 9;
             this.totalBsTB.Text = "Total Bs.";
             // 
             // totalUSDTB
             // 
             this.totalUSDTB.AutoSize = true;
-            this.totalUSDTB.Location = new System.Drawing.Point(31, 451);
+            this.totalUSDTB.Location = new System.Drawing.Point(33, 449);
+            this.totalUSDTB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalUSDTB.Name = "totalUSDTB";
-            this.totalUSDTB.Size = new System.Drawing.Size(89, 16);
+            this.totalUSDTB.Size = new System.Drawing.Size(70, 13);
             this.totalUSDTB.TabIndex = 10;
             this.totalUSDTB.Text = "Total Dolares";
             // 
             // facturarButton
             // 
-            this.facturarButton.Location = new System.Drawing.Point(140, 495);
+            this.facturarButton.Location = new System.Drawing.Point(115, 485);
+            this.facturarButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.facturarButton.Name = "facturarButton";
-            this.facturarButton.Size = new System.Drawing.Size(88, 36);
+            this.facturarButton.Size = new System.Drawing.Size(66, 29);
             this.facturarButton.TabIndex = 11;
             this.facturarButton.Text = "Facturar";
             this.facturarButton.UseVisualStyleBackColor = true;
@@ -216,9 +228,10 @@
             // 
             this.metodosDePagolbl.AutoSize = true;
             this.metodosDePagolbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metodosDePagolbl.Location = new System.Drawing.Point(27, 306);
+            this.metodosDePagolbl.Location = new System.Drawing.Point(30, 332);
+            this.metodosDePagolbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.metodosDePagolbl.Name = "metodosDePagolbl";
-            this.metodosDePagolbl.Size = new System.Drawing.Size(142, 20);
+            this.metodosDePagolbl.Size = new System.Drawing.Size(125, 17);
             this.metodosDePagolbl.TabIndex = 12;
             this.metodosDePagolbl.Text = "Metodo de pago";
             this.metodosDePagolbl.Click += new System.EventHandler(this.metodosDePagolbl_Click);
@@ -226,9 +239,10 @@
             // puntoDeVentaRB
             // 
             this.puntoDeVentaRB.AutoSize = true;
-            this.puntoDeVentaRB.Location = new System.Drawing.Point(31, 342);
+            this.puntoDeVentaRB.Location = new System.Drawing.Point(33, 361);
+            this.puntoDeVentaRB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.puntoDeVentaRB.Name = "puntoDeVentaRB";
-            this.puntoDeVentaRB.Size = new System.Drawing.Size(117, 20);
+            this.puntoDeVentaRB.Size = new System.Drawing.Size(98, 17);
             this.puntoDeVentaRB.TabIndex = 16;
             this.puntoDeVentaRB.TabStop = true;
             this.puntoDeVentaRB.Text = "Punto de venta";
@@ -238,9 +252,10 @@
             // dolaresRB
             // 
             this.dolaresRB.AutoSize = true;
-            this.dolaresRB.Location = new System.Drawing.Point(163, 342);
+            this.dolaresRB.Location = new System.Drawing.Point(132, 361);
+            this.dolaresRB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dolaresRB.Name = "dolaresRB";
-            this.dolaresRB.Size = new System.Drawing.Size(144, 20);
+            this.dolaresRB.Size = new System.Drawing.Size(117, 17);
             this.dolaresRB.TabIndex = 17;
             this.dolaresRB.TabStop = true;
             this.dolaresRB.Text = "Dolares en efectivo";
@@ -250,9 +265,10 @@
             // bsRB
             // 
             this.bsRB.AutoSize = true;
-            this.bsRB.Location = new System.Drawing.Point(31, 368);
+            this.bsRB.Location = new System.Drawing.Point(33, 382);
+            this.bsRB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bsRB.Name = "bsRB";
-            this.bsRB.Size = new System.Drawing.Size(153, 20);
+            this.bsRB.Size = new System.Drawing.Size(124, 17);
             this.bsRB.TabIndex = 18;
             this.bsRB.TabStop = true;
             this.bsRB.Text = "Bolivares en efectivo";
@@ -262,9 +278,10 @@
             // zelleRB
             // 
             this.zelleRB.AutoSize = true;
-            this.zelleRB.Location = new System.Drawing.Point(197, 368);
+            this.zelleRB.Location = new System.Drawing.Point(158, 382);
+            this.zelleRB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.zelleRB.Name = "zelleRB";
-            this.zelleRB.Size = new System.Drawing.Size(58, 20);
+            this.zelleRB.Size = new System.Drawing.Size(48, 17);
             this.zelleRB.TabIndex = 19;
             this.zelleRB.TabStop = true;
             this.zelleRB.Text = "Zelle";
@@ -274,37 +291,42 @@
             // datosClienteLbl
             // 
             this.datosClienteLbl.AutoSize = true;
-            this.datosClienteLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datosClienteLbl.Location = new System.Drawing.Point(28, 33);
+            this.datosClienteLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datosClienteLbl.Location = new System.Drawing.Point(11, 27);
+            this.datosClienteLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.datosClienteLbl.Name = "datosClienteLbl";
-            this.datosClienteLbl.Size = new System.Drawing.Size(152, 20);
+            this.datosClienteLbl.Size = new System.Drawing.Size(395, 55);
             this.datosClienteLbl.TabIndex = 22;
             this.datosClienteLbl.Text = "Datos del cliente";
             // 
             // cedulaLbl
             // 
             this.cedulaLbl.AutoSize = true;
-            this.cedulaLbl.Location = new System.Drawing.Point(45, 71);
+            this.cedulaLbl.Location = new System.Drawing.Point(44, 141);
+            this.cedulaLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cedulaLbl.Name = "cedulaLbl";
-            this.cedulaLbl.Size = new System.Drawing.Size(50, 16);
+            this.cedulaLbl.Size = new System.Drawing.Size(40, 13);
             this.cedulaLbl.TabIndex = 23;
             this.cedulaLbl.Text = "Cedula";
+            this.cedulaLbl.Click += new System.EventHandler(this.cedulaLbl_Click);
             // 
             // nombreLbl
             // 
             this.nombreLbl.AutoSize = true;
-            this.nombreLbl.Location = new System.Drawing.Point(34, 111);
+            this.nombreLbl.Location = new System.Drawing.Point(40, 169);
+            this.nombreLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nombreLbl.Name = "nombreLbl";
-            this.nombreLbl.Size = new System.Drawing.Size(56, 16);
+            this.nombreLbl.Size = new System.Drawing.Size(44, 13);
             this.nombreLbl.TabIndex = 24;
             this.nombreLbl.Text = "Nombre";
             // 
             // cantidadLbl
             // 
             this.cantidadLbl.AutoSize = true;
-            this.cantidadLbl.Location = new System.Drawing.Point(14, 230);
+            this.cantidadLbl.Location = new System.Drawing.Point(20, 270);
+            this.cantidadLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cantidadLbl.Name = "cantidadLbl";
-            this.cantidadLbl.Size = new System.Drawing.Size(61, 16);
+            this.cantidadLbl.Size = new System.Drawing.Size(49, 13);
             this.cantidadLbl.TabIndex = 25;
             this.cantidadLbl.Text = "Cantidad";
             this.cantidadLbl.Click += new System.EventHandler(this.nombreProductoLbl_Click);
@@ -312,9 +334,10 @@
             // codigoLbl
             // 
             this.codigoLbl.AutoSize = true;
-            this.codigoLbl.Location = new System.Drawing.Point(28, 202);
+            this.codigoLbl.Location = new System.Drawing.Point(31, 247);
+            this.codigoLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codigoLbl.Name = "codigoLbl";
-            this.codigoLbl.Size = new System.Drawing.Size(51, 16);
+            this.codigoLbl.Size = new System.Drawing.Size(40, 13);
             this.codigoLbl.TabIndex = 26;
             this.codigoLbl.Text = "Codigo";
             // 
@@ -322,18 +345,20 @@
             // 
             this.datosProductolbl.AutoSize = true;
             this.datosProductolbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datosProductolbl.Location = new System.Drawing.Point(44, 169);
+            this.datosProductolbl.Location = new System.Drawing.Point(43, 220);
+            this.datosProductolbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.datosProductolbl.Name = "datosProductolbl";
-            this.datosProductolbl.Size = new System.Drawing.Size(169, 20);
+            this.datosProductolbl.Size = new System.Drawing.Size(146, 17);
             this.datosProductolbl.TabIndex = 28;
             this.datosProductolbl.Text = "Datos del producto";
             // 
             // pagoMovilRB
             // 
             this.pagoMovilRB.AutoSize = true;
-            this.pagoMovilRB.Location = new System.Drawing.Point(261, 368);
+            this.pagoMovilRB.Location = new System.Drawing.Point(206, 382);
+            this.pagoMovilRB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pagoMovilRB.Name = "pagoMovilRB";
-            this.pagoMovilRB.Size = new System.Drawing.Size(96, 20);
+            this.pagoMovilRB.Size = new System.Drawing.Size(77, 17);
             this.pagoMovilRB.TabIndex = 31;
             this.pagoMovilRB.TabStop = true;
             this.pagoMovilRB.Text = "Pago movil";
@@ -342,9 +367,10 @@
             // 
             // busquedaLINQbutton
             // 
-            this.busquedaLINQbutton.Location = new System.Drawing.Point(295, 192);
+            this.busquedaLINQbutton.Location = new System.Drawing.Point(231, 239);
+            this.busquedaLINQbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.busquedaLINQbutton.Name = "busquedaLINQbutton";
-            this.busquedaLINQbutton.Size = new System.Drawing.Size(88, 36);
+            this.busquedaLINQbutton.Size = new System.Drawing.Size(66, 29);
             this.busquedaLINQbutton.TabIndex = 32;
             this.busquedaLINQbutton.Text = "Buscar";
             this.busquedaLINQbutton.UseVisualStyleBackColor = true;
@@ -355,18 +381,19 @@
             this.validacionLbl.AutoSize = true;
             this.validacionLbl.BackColor = System.Drawing.Color.Transparent;
             this.validacionLbl.ForeColor = System.Drawing.Color.Red;
-            this.validacionLbl.Location = new System.Drawing.Point(86, 263);
+            this.validacionLbl.Location = new System.Drawing.Point(74, 297);
+            this.validacionLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.validacionLbl.Name = "validacionLbl";
-            this.validacionLbl.Size = new System.Drawing.Size(205, 16);
+            this.validacionLbl.Size = new System.Drawing.Size(163, 13);
             this.validacionLbl.TabIndex = 33;
             this.validacionLbl.Text = "Solo intruducir caracteres validos";
             this.validacionLbl.Visible = false;
             // 
             // Facturar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 693);
+            this.ClientSize = new System.Drawing.Size(1215, 675);
             this.Controls.Add(this.validacionLbl);
             this.Controls.Add(this.busquedaLINQbutton);
             this.Controls.Add(this.pagoMovilRB);
@@ -392,6 +419,7 @@
             this.Controls.Add(this.tituloLbl);
             this.Controls.Add(this.cedulaTB);
             this.Controls.Add(this.nombreTB);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Facturar";
             this.Text = "Facturacion";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Facturar_FormClosed);

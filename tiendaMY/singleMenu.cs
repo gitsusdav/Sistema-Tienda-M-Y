@@ -20,13 +20,38 @@ namespace tiendaMY
 
 
 
+
         public form()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             GetTasaBCVAsync();
+            IniciarPaneles();
 
+        }
 
+        private void IniciarPaneles()
+        {
+
+            // 0 - Dashboard
+            // 1 - Facturar
+            // 2 - Inventario
+            // 3 - Ajustes
+            // 4 - Deudores
+
+            Dashboard dashboard = new Dashboard() { TopLevel = false, TopMost = true };
+            dashboard.FormBorderStyle = FormBorderStyle.None;
+            Facturar facturar = new Facturar() { TopLevel = false, TopMost = true };
+            facturar.FormBorderStyle = FormBorderStyle.None;
+            Inventario inventario = new Inventario() { TopLevel = false, TopMost = true };
+            inventario.FormBorderStyle = FormBorderStyle.None;
+            listaDeudores listaDeudores = new listaDeudores() { TopLevel = false, TopMost = true };
+            listaDeudores.FormBorderStyle = FormBorderStyle.None;
+
+            panel1.Controls.Add(dashboard);
+            panel1.Controls.Add(facturar);
+            panel1.Controls.Add(inventario);
+            panel1.Controls.Add(listaDeudores);
         }
 
         private async Task GetTasaBCVAsync()
@@ -49,11 +74,10 @@ namespace tiendaMY
                 string precioDolar = nodoPrecioDolar.InnerText;
 
                 decimal precioDolarDecimal = Convert.ToDecimal(precioDolar);
-                decimal precioDolarRecortado = precioDolarDecimal / 100000000;
 
                 // Puedes utilizar el precio del dólar como desees en tu aplicación
-                Configuracion.TasaDolar = Convert.ToDecimal(precioDolarRecortado);
-                MessageBox.Show($"Tasa del dolar cargada, tasa: {Configuracion.TasaDolar}");
+                Configuracion.TasaDolar = Convert.ToDecimal(precioDolarDecimal);
+                MessageBox.Show($"Tasa del dolar cargada, tasa: {Configuracion.TasaDolar:f2}");
 
             }
 
@@ -64,10 +88,61 @@ namespace tiendaMY
             }
         }
 
+        // click on facturarr button panel access
         private void button1_Click(object sender, EventArgs e)
         {
-            Panel dashboard = new Panel() { TopLevel = false, TopMost = true };
-            VerificarGuardado(dashboard);
+            AccederAPanel("Dashboard");
+        }
+
+        private void AccederAPanel(string key)
+        {
+            // Como el panel es una lista de forms, podemos acceder a cada form del panel segun su indice.
+            switch (key)
+            {
+
+                // 0 - Dashboard
+                // 1 - Facturar
+                // 2 - Inventario
+                // 3 - Ajustes
+                // 4 - Deudores
+
+                case "Dashboard":
+                    ShowPanel("Dashboard");
+                    break;
+
+                case "Facturacion":
+                    ShowPanel("Facturacion");
+                    break;
+
+                case "Inventario":
+                    ShowPanel("Inventario");
+                    break;
+
+                case "Ajustes":
+                    ShowPanel("Ajustes");
+                    break;
+
+                case "Lista deudores":
+                    ShowPanel("Lista deudores");
+                    break;
+
+
+            }
+        }
+
+        private void ShowPanel(string key)
+        {
+            panel1.Controls[0].Hide();
+
+            foreach(Form form in panel1.Controls) { 
+
+               if (form.Text == key)
+                {
+                    form.Show();
+                    form.BringToFront();
+                }
+
+            }
         }
 
         private void VerificarGuardado(Form form)
@@ -115,15 +190,14 @@ namespace tiendaMY
         }
 
         private void button2_Click(object sender, EventArgs e)
-        { 
-             Facturar facturar = new Facturar() { TopLevel = false, TopMost = true };
-             VerificarGuardado(facturar);
+        {
+            AccederAPanel("Facturacion");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Inventario inventario = new Inventario() { TopLevel = false, TopMost = true };
-            VerificarGuardado(inventario);
+            AccederAPanel("Inventario");
+            
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -138,15 +212,17 @@ namespace tiendaMY
 
         private void button5_Click(object sender, EventArgs e)
         {
-           
-            listaDeudores listaDeudores = new listaDeudores() { TopLevel = false, TopMost = true };
-            VerificarGuardado(listaDeudores);
+
+            AccederAPanel("Lista deudores");
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Ajustes ajustes = new Ajustes() { TopLevel = false, TopMost = true };
-            VerificarGuardado(ajustes);
+            ajustes.FormBorderStyle = FormBorderStyle.None;
+            panel1.Controls.Add(ajustes);
+            AccederAPanel("Ajustes");
+            
         }
     }
 }

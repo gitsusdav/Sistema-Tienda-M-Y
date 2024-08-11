@@ -4,4 +4,5 @@
     {
         public static decimal TasaDolar { get; set; }
     }
+    
 }
