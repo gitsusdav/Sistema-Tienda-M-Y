@@ -13,14 +13,14 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace tiendaMY
 {
-    public partial class Panel : Form
+    public partial class Dashboard : Form
     {
         private decimal dineroFacturado;
         private decimal ganancias;
         private List<Venta> ventas;
         private List<Venta> ventasFiltradas;
 
-        public Panel()
+        public Dashboard()
         {
             InitializeComponent();
 
@@ -41,11 +41,11 @@ namespace tiendaMY
             Calcular(ventasFiltradas);
 
 
-            // configurar combobox para que no se puedad editar
+            // configurar combobox para que no se pueda editar
             filtroFecha.DropDownStyle = ComboBoxStyle.DropDownList;
            filtroMoneda.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            //quitar indice del datagridview y ponerlo readonly
+            // quitar indice del datagridview y ponerlo readonly
             ventasDGV.RowHeadersVisible = false;
             ventasDGV.ReadOnly = true;
         }
@@ -122,19 +122,43 @@ namespace tiendaMY
             // NombreCliente,MetodoDePago,Id,TotalVenta,Ganancia,Fecha
             string ruta = "ventas.csv";
             string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ruta);
-            string [] lineasVentas = File.ReadAllLines(rutaCompleta);
 
-            foreach(string linea in lineasVentas.Skip(1))
+
+            if (File.Exists(rutaCompleta))
             {
-                string[] atributos = linea.Split(',');
-                Venta venta = new Venta();
-                venta.NombreCliente = atributos[0];
-                venta.MetodoDePago = atributos[1];
-                venta.Id = atributos[2];
-                venta.TotalVenta = Convert.ToDecimal(atributos[3]);
-                venta.Ganancia = Convert.ToDecimal((atributos[4]));
-                venta.Fecha = DateTime.Parse(atributos[5]);
-                ventas.Add(venta);
+                string[] lineasVentas = File.ReadAllLines(rutaCompleta);
+
+                foreach (string linea in lineasVentas.Skip(1))
+                {
+                    string[] atributos = linea.Split(',');
+                    Venta venta = new Venta();
+                    venta.NombreCliente = atributos[0];
+                    venta.MetodoDePago = atributos[1];
+                    venta.Id = atributos[2];
+                    venta.TotalVenta = Convert.ToDecimal(atributos[3]);
+                    venta.Ganancia = Convert.ToDecimal((atributos[4]));
+                    venta.Fecha = DateTime.Parse(atributos[5]);
+                    ventas.Add(venta);
+
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(rutaCompleta))
+                    {
+                        // Escribimos la primera línea con los encabezados (opcional)
+                        writer.WriteLine("NombreCliente,MetodoDePago,Id,TotalVenta,Ganancia,Fecha");
+                    }
+
+                    Console.WriteLine($"Archivo CSV creado en: {rutaCompleta}");
+                    CargarVentasCSV();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al crear el archivo CSV: {ex.Message}");
+                }
 
             }
         }

@@ -1,6 +1,6 @@
 ﻿namespace tiendaMY
 {
-    partial class Panel
+    partial class Dashboard
     {
         /// <summary>
         /// Required designer variable.

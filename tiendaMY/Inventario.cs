@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,22 +22,23 @@ namespace tiendaMY
 
 
 
+
         public Inventario()
         {
 
             InitializeComponent();
             //inventarioDGV.RowHeadersVisible = false;
             listaProductos = new List<Producto>();
-           
-            string rutaArchivo = "inventario.csv";  
+
+            string rutaArchivo = "inventario.csv";
             string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
             inventarioDGV.RowPostPaint += inventarioDGV_RowPostPaint;
-            
+           
 
 
             string[] lineasProductos = File.ReadAllLines(rutaCompleta);
 
-            foreach(string linea in lineasProductos.Skip(1)) 
+            foreach (string linea in lineasProductos.Skip(1))
             {
                 string[] valoresObjeto = linea.Split(',');
                 Producto producto = new Producto();
@@ -45,12 +47,12 @@ namespace tiendaMY
                 producto.Nombre = valoresObjeto[1];
                 producto.Descripcion = valoresObjeto[2];
                 producto.Cantidad = Convert.ToInt32(valoresObjeto[3]);
-                producto.PrecioCompra = Convert.ToDouble(valoresObjeto[4]);
-                producto.PrecioDeVenta = Convert.ToDouble(valoresObjeto[5]);
+                producto.PrecioCompra = Convert.ToDouble(valoresObjeto[4].Replace('.',','));
+                producto.PrecioDeVenta = Convert.ToDouble(valoresObjeto[5].Replace('.', ','));
 
                 listaProductos.Add(producto);
             }
-            
+
             foreach (Producto producto in listaProductos)
             {
                 inventarioDGV.Rows.Add(
@@ -87,6 +89,7 @@ namespace tiendaMY
 
         private void refreshBtn_Click(object sender, EventArgs e)
         {
+
             bool nuloEnLaLista = false;
             bool casillaEsNull = false;
             // Limpiar la lista de productos
@@ -96,86 +99,124 @@ namespace tiendaMY
 
             try
             {
-               
-                // Recorrer las filas del DataGridView y agregar cada producto a la lista
-                foreach (DataGridViewRow row in inventarioDGV.Rows)
+
+                // Crear la ruta del archivo CSV
+                string rutaArchivo = "inventario.csv";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
+
+                // Escribir la información actualizada de productos al archivo CSV
+                using (StreamWriter sw = new StreamWriter(rutaCompleta))
                 {
-                    if (!row.IsNewRow)
+                    // Escribir encabezados al archivo CSV
+                    sw.WriteLine("Codigo,NombreCliente,Descripcion,Cantidad,Precio Compra,Precio Venta");
+
+                    // Recorrer las filas del DataGridView y agregar cada producto al archivo CSV
+                    foreach (DataGridViewRow row in inventarioDGV.Rows)
                     {
-                        casillaEsNull = false;
-
-                        for (int columnIndex = 0; columnIndex < row.Cells.Count; columnIndex++)
+                        if (!row.IsNewRow)
                         {
-                            // Saltar la celda en la posición 6
-                            if (columnIndex == 6)
+                            casillaEsNull = false;
+
+                            // Verificar si hay celdas vacías
+                            for (int columnIndex = 0; columnIndex < row.Cells.Count; columnIndex++)
                             {
-                                j++;
-                                continue;
+                                // Saltar la celda en la posición 6
+                                if (columnIndex == 6)
+                                {
+                                    continue;
+                                }
+
+                                DataGridViewCell cell = row.Cells[columnIndex];
+
+                                if (cell.Value == null || string.IsNullOrWhiteSpace(cell.Value.ToString()))
+                                {
+                                    casillaEsNull = true;
+                                    nuloEnLaLista = true;
+                                    break;
+                                }
                             }
 
-                            DataGridViewCell cell = row.Cells[columnIndex];
-
-                            if (cell.Value == null || string.IsNullOrWhiteSpace(cell.Value.ToString()))
+                            // Si no hay celdas vacías, escribir la fila en el CSV
+                            if (!casillaEsNull)
                             {
-                                casillaEsNull = true;
-                                nuloEnLaLista = true;
-                                break;
-                            }
+                                var precioCompra = row.Cells["precioCompraColumn"].Value.ToString().Replace(',','.');
+                                var precioVenta = row.Cells["precioVentaColumn"].Value.ToString().Replace(',', '.');
+                                var cantidad = row.Cells["cantidadColumn"].Value.ToString().Replace(',', '.');
 
-                            
+                                bool cadenaEsNumeroValido = validarNumero(precioCompra);
+                                bool cadena1EsNumeroValido = validarNumero(precioVenta);
+                                bool cadena2EsNumeroValido = validarNumero(cantidad);
+
+                                if (!cadenaEsNumeroValido || !cadena1EsNumeroValido || !cadena2EsNumeroValido)
+                                {
+                                    throw new InvalidAsynchronousStateException();
+                                }
+
+                                else
+                                {
+                                    sw.WriteLine($"{row.Cells["codigoColumn"].Value},{row.Cells["nombreColumn"].Value},{row.Cells["descripcionColumn"].Value},{row.Cells["cantidadColumn"].Value},{precioCompra},{precioVenta}");
+                                }
+                              
+                                
+                            }
                         }
-
-                        Producto producto = new Producto
-                        {
-                            Nombre = row.Cells["nombreColumn"].Value.ToString(),
-                            Descripcion = row.Cells["descripcionColumn"].Value.ToString(),
-                            PrecioDeVenta = double.Parse(row.Cells["precioVentaColumn"].Value.ToString()),
-                            PrecioCompra = double.Parse(row.Cells["precioCompraColumn"].Value.ToString()),
-                            Cantidad = int.Parse(row.Cells["cantidadColumn"].Value.ToString()),
-                            Codigo = row.Cells["codigoColumn"].Value.ToString()
-                        };
-                        listaProductos.Add(producto);
-
-                        i++;
                     }
+                    MessageBox.Show("Datos guardados exitosamente");
                 }
             }
             catch (Exception ex)
             {
-               
-                MessageBox.Show($"Error al añadir productos. Ninguna casilla puede ser nula o incluir letras en cantidad y precio. Celda {i +1}");
+
+                MessageBox.Show($"Error al añadir productos. Caracter invalido . Celda {i + 1}");
                 listaProductos.Clear();
             }
+            
 
 
-            if (listaProductos.Count != 0) 
+        }
+
+        private bool validarNumero(string texto)
+        {
+            // Verificar si la cadena está vacía o nula
+            if (string.IsNullOrWhiteSpace(texto))
             {
-                string rutaArchivo = "inventario.csv";
-                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
-                // Guardar la lista de productos en el archivo CSV
-                try
+                return false;
+                throw new InvalidAsynchronousStateException();
+            }
+
+            // Contar la cantidad de puntos y comas
+            int countPuntos = 0;
+            int countComas = 0;
+
+            foreach (char c in texto)
+            {
+                if (char.IsDigit(c))
                 {
-                    // Escribir la información actualizada de productos al archivo CSV
-                    using (StreamWriter sw = new StreamWriter(rutaCompleta))
-                    {
-                        // Escribir encabezados al archivo CSV
-                        sw.WriteLine("Codigo,NombreCliente,Descripcion,Cantidad,Precio Compra,Precio Venta");
-
-                        // Escribir información actualizada de productos al archivo CSV
-                        foreach (Producto producto in listaProductos)
-                        {
-                            sw.WriteLine($"{producto.Codigo},{producto.Nombre},{producto.Descripcion},{producto.Cantidad},{producto.PrecioCompra},{producto.PrecioDeVenta}");
-                        }
-                    }
-
-                    MessageBox.Show("Productos guardados correctamente en el archivo CSV.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    continue;
                 }
-                catch (Exception ex)
+                else if (c == '.')
                 {
-                    MessageBox.Show($"Error al guardar productos en el archivo CSV: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    countPuntos++;
+                }
+                else if (c == ',')
+                {
+                    countComas++;
+                }
+                else
+                {
+                    return false; // Contiene caracteres no permitidos
                 }
             }
-         
+
+            // Verificar que no haya más de un punto o coma
+            if (countPuntos > 1 || countComas > 1)
+            {
+                return false;
+                
+            }
+
+            string textoFormateado = texto.Replace(',', '.'); // Reemplazar coma por punto si es necesario
+            return double.TryParse(textoFormateado, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
         }
 
         private void inventarioDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)

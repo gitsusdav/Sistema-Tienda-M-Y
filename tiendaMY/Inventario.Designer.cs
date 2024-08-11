@@ -1,4 +1,7 @@
-﻿namespace tiendaMY
+﻿using System;
+using System.Windows.Forms;
+
+namespace tiendaMY
 {
     partial class Inventario
     {
@@ -28,9 +31,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.inventarioDGV = new System.Windows.Forms.DataGridView();
+            this.inventarioLbl = new System.Windows.Forms.Label();
+            this.refreshBtn = new System.Windows.Forms.Button();
             this.codigoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,8 +41,6 @@
             this.precioCompraColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precioVentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eliminarPB = new System.Windows.Forms.DataGridViewImageColumn();
-            this.inventarioLbl = new System.Windows.Forms.Label();
-            this.refreshBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.inventarioDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,13 +55,37 @@
             this.precioCompraColumn,
             this.precioVentaColumn,
             this.eliminarPB});
-            this.inventarioDGV.Location = new System.Drawing.Point(71, 101);
+            this.inventarioDGV.Location = new System.Drawing.Point(53, 82);
+            this.inventarioDGV.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.inventarioDGV.Name = "inventarioDGV";
             this.inventarioDGV.RowHeadersWidth = 51;
             this.inventarioDGV.RowTemplate.Height = 24;
-            this.inventarioDGV.Size = new System.Drawing.Size(879, 492);
+            this.inventarioDGV.Size = new System.Drawing.Size(659, 400);
             this.inventarioDGV.TabIndex = 0;
             this.inventarioDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inventarioDGV_CellContentClick);
+            // 
+            // inventarioLbl
+            // 
+            this.inventarioLbl.AutoSize = true;
+            this.inventarioLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inventarioLbl.Location = new System.Drawing.Point(302, 19);
+            this.inventarioLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.inventarioLbl.Name = "inventarioLbl";
+            this.inventarioLbl.Size = new System.Drawing.Size(166, 37);
+            this.inventarioLbl.TabIndex = 1;
+            this.inventarioLbl.Text = "Inventario";
+            // 
+            // refreshBtn
+            // 
+            this.refreshBtn.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.refreshBtn.Location = new System.Drawing.Point(308, 519);
+            this.refreshBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.refreshBtn.Name = "refreshBtn";
+            this.refreshBtn.Size = new System.Drawing.Size(175, 34);
+            this.refreshBtn.TabIndex = 2;
+            this.refreshBtn.Text = "Actualizar";
+            this.refreshBtn.UseVisualStyleBackColor = false;
+            this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
             // 
             // codigoColumn
             // 
@@ -92,9 +117,6 @@
             // 
             // precioCompraColumn
             // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.precioCompraColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.precioCompraColumn.HeaderText = "Precio Compra";
             this.precioCompraColumn.MinimumWidth = 6;
             this.precioCompraColumn.Name = "precioCompraColumn";
@@ -102,9 +124,6 @@
             // 
             // precioVentaColumn
             // 
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = "0";
-            this.precioVentaColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.precioVentaColumn.HeaderText = "Precio Venta";
             this.precioVentaColumn.MinimumWidth = 6;
             this.precioVentaColumn.Name = "precioVentaColumn";
@@ -117,35 +136,15 @@
             this.eliminarPB.Name = "eliminarPB";
             this.eliminarPB.Width = 55;
             // 
-            // inventarioLbl
-            // 
-            this.inventarioLbl.AutoSize = true;
-            this.inventarioLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inventarioLbl.Location = new System.Drawing.Point(403, 23);
-            this.inventarioLbl.Name = "inventarioLbl";
-            this.inventarioLbl.Size = new System.Drawing.Size(203, 46);
-            this.inventarioLbl.TabIndex = 1;
-            this.inventarioLbl.Text = "Inventario";
-            // 
-            // refreshBtn
-            // 
-            this.refreshBtn.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.refreshBtn.Location = new System.Drawing.Point(411, 639);
-            this.refreshBtn.Name = "refreshBtn";
-            this.refreshBtn.Size = new System.Drawing.Size(233, 42);
-            this.refreshBtn.TabIndex = 2;
-            this.refreshBtn.Text = "Actualizar";
-            this.refreshBtn.UseVisualStyleBackColor = false;
-            this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
-            // 
             // Inventario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 693);
+            this.ClientSize = new System.Drawing.Size(769, 563);
             this.Controls.Add(this.refreshBtn);
             this.Controls.Add(this.inventarioLbl);
             this.Controls.Add(this.inventarioDGV);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Inventario";
             this.Text = "Inventario";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Inventario_FormClosing);
@@ -154,6 +153,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void InventarioDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

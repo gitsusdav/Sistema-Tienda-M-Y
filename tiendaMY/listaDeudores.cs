@@ -37,19 +37,43 @@ namespace tiendaMY
 
         private void CargarCsv()
         {
+           
             string rutaArchivo = "listaDeudores.csv";
             string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
-            string[] lineasDeudores = System.IO.File.ReadAllLines(rutaCompleta);
 
-            foreach (string linea in lineasDeudores.Skip(1))
+            if (File.Exists(rutaCompleta))
             {
-                string [] items = linea.Split(',');
-                ClienteDeudor clienteDeudor = new ClienteDeudor();
+                string[] lineasDeudores = System.IO.File.ReadAllLines(rutaCompleta);
 
-                clienteDeudor.Nombre = items[0];
-                clienteDeudor.Cantidad = items[1];
-                clienteDeudor.Notas = items[2];
-                deudores.Add(clienteDeudor);
+                foreach (string linea in lineasDeudores.Skip(1))
+                {
+                    string[] items = linea.Split(',');
+                    ClienteDeudor clienteDeudor = new ClienteDeudor();
+
+                    clienteDeudor.Nombre = items[0];
+                    clienteDeudor.Cantidad = items[1];
+                    clienteDeudor.Notas = items[2];
+                    deudores.Add(clienteDeudor);
+                }
+            }
+
+            else
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(rutaArchivo))
+                    {
+                        // Escribimos la primera línea con los encabezados (opcional)
+                        writer.WriteLine("Nombre,Cantidad,Notas");
+                    }
+
+                    Console.WriteLine($"Archivo CSV creado en: {rutaArchivo}");
+                    CargarCsv();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al crear el archivo CSV: {ex.Message}");
+                }
             }
         }
 
